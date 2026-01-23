@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.mapper.MissionMapper">
+
+    <select id="getList" resultType="com.study.domain.MissionVO">
+        SELECT * FROM mission
+        WHERE target_id = #{targetId}
+        ORDER BY mno DESC
+    </select>
+
+    <insert id="insert">
+        INSERT INTO mission (title, target_id, reward, status)
+        VALUES (#{title}, #{targetId}, #{reward}, 'TODO')
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE mission
+        SET status = 'DONE'
+        WHERE mno = #{mno}
+    </update>
+    <update id="plusPoint">
+        UPDATE member
+        SET point = point + #{amount}
+        WHERE id = #{targetId}
+    </update>
+
+    <select id="getPoint" resultType="int">
+        SELECT point FROM member WHERE id = #{targetId}
+    </select>
+</mapper>
